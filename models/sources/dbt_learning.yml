@@ -1,0 +1,110 @@
+version: 2
+
+sources:
+  - name: dbt_learning
+    description: >
+      Demo coffee-shop data loaded into Snowflake via dbt seeds.
+      Run `dbt seed` first to populate these tables in DBT_LEARNING.DBT_ARTIFACT.
+    database: DBT_LEARNING
+    schema: DBT_ARTIFACT
+    tables:
+      - name: raw_customers
+        description: Customer records from the point-of-sale system.
+        columns:
+          - name: id
+            description: Primary key for the customer.
+            tests:
+              - unique
+              - not_null
+          - name: first_name
+          - name: last_name
+          - name: email
+          - name: created_at
+
+      - name: raw_products
+        description: Product catalog with pricing.
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: name
+          - name: price
+          - name: category
+
+      - name: raw_orders
+        description: Individual line items per order.
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: customer_id
+          - name: product_id
+          - name: order_date
+          - name: status
+          - name: quantity
+
+      - name: raw_payments
+        description: Payment transactions linked to orders.
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: order_id
+          - name: amount
+          - name: payment_method
+          - name: paid_at
+  - name: blackrock
+    description: Blackrock customers data
+    database: BLACKROCK
+    schema: CUSTOMERS_RAW
+    tables:
+      - name: customers
+        columns:
+          - name: id
+            description: Primary key for the customer.
+            tests:
+              - unique
+              - not_null
+          - name: first_name
+          - name: last_name
+          - name: email
+          - name: created_at
+
+      - name: products
+        description: Product catalog with pricing.
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: name
+          - name: price
+          - name: category
+
+      - name: orders
+        description: Individual line items per order.
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: customer_id
+          - name: product_id
+          - name: order_date
+          - name: status
+          - name: quantity
+
+      - name: payments
+        description: Payment transactions linked to orders.
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: order_id
+          - name: amount
+          - name: payment_method
+          - name: paid_at

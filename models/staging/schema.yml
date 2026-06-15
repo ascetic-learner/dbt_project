@@ -1,0 +1,184 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: Cleaned customer records with standardized column names.
+    config:
+      database: DBT_LEARNING
+      schema: staging
+      materialized: view
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+      - name: first_name
+        tests:
+          - not_null
+      - name: last_name
+        tests:
+          - not_null
+
+  - name: stg_products
+    description: Product catalog with typed pricing.
+    config:
+      database: DBT_LEARNING
+      schema: staging
+      materialized: view
+    columns:
+      - name: product_id
+        tests:
+          - unique
+          - not_null
+      - name: product_name
+        tests:
+          - not_null
+      - name: unit_price
+        tests:
+          - not_null
+
+  - name: stg_orders
+    description: Order line items with normalized status values.
+    config:
+      database: DBT_LEARNING
+      schema: staging
+      materialized: view
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_customers')
+                field: customer_id
+      - name: product_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_products')
+                field: product_id
+      - name: order_status
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['completed', 'cancelled', 'pending']
+
+  - name: stg_payments
+    description: Payment records linked to orders.
+    config:
+      database: DBT_LEARNING
+      schema: staging
+      materialized: view
+    columns:
+      - name: payment_id
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_orders')
+                field: order_id
+      - name: payment_method
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['credit_card', 'debit_card', 'cash']
+
+  - name: stg_blackrock__customers 
+    description: Cleaned customer records with standardized column names.
+    config:
+      database: DBT_LEARNING
+      schema: staging
+      materialized: view
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+      - name: first_name
+        tests:
+          - not_null
+      - name: last_name
+        tests:
+          - not_null
+
+  - name: stg_blackrock__products
+    description: Product catalog with typed pricing.
+    config:
+      database: DBT_LEARNING
+      schema: staging
+      materialized: view
+    columns:
+      - name: product_id
+        tests:
+          - unique
+          - not_null
+      - name: product_name
+        tests:
+          - not_null
+      - name: unit_price
+        tests:
+          - not_null
+
+  - name: stg_blackrock__orders
+    description: Order line items with normalized status values.
+    config:
+      database: DBT_LEARNING
+      schema: staging
+      materialized: view
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_customers')
+                field: customer_id
+      - name: product_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_products')
+                field: product_id
+      - name: order_status
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['completed', 'cancelled', 'pending']
+
+  - name: stg_blackrock__payments
+    description: Payment records linked to orders.
+    config:
+      database: DBT_LEARNING
+      schema: staging
+      materialized: view
+    columns:
+      - name: payment_id
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_orders')
+                field: order_id
+      - name: payment_method
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['credit_card', 'debit_card', 'cash']
