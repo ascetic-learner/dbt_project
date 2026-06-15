@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: Customer dimension for reporting and analytics.
+    config:
+      database: DBT_LEARNING
+      schema: marts
+      materialized: table
+    columns:
+      - name: customer_id
+        description: Unique customer identifier.
+        tests:
+          - unique
+          - not_null
+      - name: full_name
+        description: Customer display name.
+      - name: has_email
+        description: Whether the customer has a valid email on file.
+
+  - name: fct_orders
+    description: Order fact table with product details and payment totals.
+    config:
+      database: DBT_LEARNING
+      schema: marts
+      materialized: table
+    columns:
+      - name: order_id
+        description: Unique order line identifier.
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_id
+      - name: line_total
+        description: Quantity multiplied by unit price.
+      - name: is_paid
+        description: True when the order is completed and has a payment.

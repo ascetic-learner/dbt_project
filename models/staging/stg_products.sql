@@ -1,0 +1,19 @@
+with src as (
+
+    select * from {{ source('dbt_learning', 'raw_products') }}
+
+),
+
+renamed as (
+
+    select
+        id as product_id,
+        name as product_name,
+        price::number(10, 2) as unit_price,
+        category as product_category
+
+    from src
+
+)
+
+select * from renamed

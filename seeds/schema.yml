@@ -1,0 +1,22 @@
+version: 2
+
+seeds:
+  - name: raw_customers
+    config:
+      database: DBT_LEARNING
+      schema: DBT_ARTIFACT
+
+  - name: raw_orders
+    config:
+      database: DBT_LEARNING
+      schema: DBT_ARTIFACT
+
+  - name: raw_products
+    config:
+      database: DBT_LEARNING
+      schema: DBT_ARTIFACT
+
+  - name: raw_payments
+    config:
+      database: DBT_LEARNING
+      schema: DBT_ARTIFACT
