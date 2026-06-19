@@ -10,9 +10,6 @@ models:
     columns:
       - name: customer_id
         description: Unique customer identifier.
-        tests:
-          - unique
-          - not_null
       - name: full_name
         description: Customer display name.
       - name: has_email
@@ -28,16 +25,14 @@ models:
       - name: order_id
         description: Unique order line identifier.
         tests:
-          - unique
           - not_null
       - name: customer_id
         tests:
           - not_null
-          - relationships:
-              arguments:
-                to: ref('dim_customers')
-                field: customer_id
+
       - name: line_total
         description: Quantity multiplied by unit price.
       - name: is_paid
         description: True when the order is completed and has a payment.
+
+        

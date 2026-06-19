@@ -1,6 +1,6 @@
 id,name,price,category
-1,Espresso,3.50,Beverage
-2,Cappuccino,4.50,Beverage
-3,Croissant,3.00,Pastry
-4,Blueberry Muffin,2.75,Pastry
-5,Latte,4.00,Beverage
+123,Espresso,3.50,Beverage
+234,Cappuccino,4.50,Beverage
+345,Croissant,3.00,Pastry
+456,Blueberry Muffin,2.75,Pastry
+567,Latte,4.00,Beverage
