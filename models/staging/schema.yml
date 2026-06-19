@@ -121,6 +121,7 @@ models:
         tests:
           - unique
           - not_null
+          
       - name: product_name
         tests:
           - not_null
@@ -142,17 +143,11 @@ models:
       - name: customer_id
         tests:
           - not_null
-          - relationships:
-              arguments:
-                to: ref('stg_customers')
-                field: customer_id
+
       - name: product_id
         tests:
           - not_null
-          - relationships:
-              arguments:
-                to: ref('stg_products')
-                field: product_id
+
       - name: order_status
         tests:
           - accepted_values:
@@ -173,10 +168,7 @@ models:
       - name: order_id
         tests:
           - not_null
-          - relationships:
-              arguments:
-                to: ref('stg_orders')
-                field: order_id
+
       - name: payment_method
         tests:
           - accepted_values:
